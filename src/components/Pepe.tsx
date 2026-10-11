@@ -1,5 +1,8 @@
 import { useId } from 'react';
 
+// Outfit colours by look; the city walkers reuse them so a hired Pepe is recognisable on the street.
+export const OUTFITS = ['#668eb0', '#ddb168', '#9e8abe', '#5d7375', '#d88c70'];
+
 export function Pepe({
   look = 0,
   className = '',
@@ -10,7 +13,7 @@ export function Pepe({
   title?: string;
 }) {
   const id = useId().replace(/:/g, '');
-  const outfits = ['#668eb0', '#ddb168', '#9e8abe', '#5d7375', '#d88c70'];
+  const outfits = OUTFITS;
   const skins = ['#89b965', '#a7c579', '#80ad65', '#a1b571', '#7da881'];
   return (
     <svg

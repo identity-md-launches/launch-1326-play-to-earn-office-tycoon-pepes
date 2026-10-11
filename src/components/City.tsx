@@ -1,5 +1,15 @@
 import { useState, type CSSProperties } from 'react';
-import { LocateFixed, MapPin, Minus, Moon, Plus, Sun, Pause, Play } from 'lucide-react';
+import { Coffee, LocateFixed, MapPin, Minus, Moon, Plus, Sun, Pause, Play } from 'lucide-react';
+import { OUTFITS } from './Pepe';
+
+// Street spots for the player's employees, nearest the company plot first.
+const COMMUTE_SPOTS: [number, number, number][] = [
+  [330, 433, -7],
+  [302, 406, -13],
+  [320, 285, -2],
+  [199, 309, -11],
+  [420, 223, -5],
+];
 
 type Point = [number, number];
 const iso = (x: number, y: number, z = 0): Point => [
@@ -455,7 +465,7 @@ export function Building({
           ))}
           <g transform={`translate(${iso(x + 53, y + d + 1, 56).join(' ')}) rotate(27.65)`}>
             <rect x="-40" y="-13" width="80" height="19" rx="3" fill="#f8ebcc" />
-            <text textAnchor="middle" y="0" fill="#715a45" fontSize="12" fontWeight="700">
+            <text textAnchor="middle" y="0" fill="#715a45" fontSize="12" fontWeight="800">
               LILY’S CAFÉ
             </text>
           </g>
@@ -483,7 +493,7 @@ export function Building({
       {variant === 'blue' && (
         <g transform={`translate(${iso(x + w, y + 45, h - 10).join(' ')}) rotate(-27.65)`}>
           <rect x="-30" y="-15" width="62" height="19" rx="3" fill="#486e66" />
-          <text textAnchor="middle" y="-2" fill="#f3efd4" fontSize="10" fontWeight="700">
+          <text textAnchor="middle" y="-2" fill="#f3efd4" fontSize="10" fontWeight="800">
             LILYPAD LABS
           </text>
         </g>
@@ -521,19 +531,26 @@ export function CityArt({
   level = 0,
   night = false,
   staff = 0,
+  looks = [],
   selected = true,
 }: {
   level?: number;
   night?: boolean;
   staff?: number;
+  looks?: number[];
   selected?: boolean;
 }) {
+  const commuters = looks.slice(0, COMMUTE_SPOTS.length);
   return (
     <svg
       className="city-art"
       viewBox="0 0 1040 640"
       role="img"
-      aria-label={`An isometric Pepe city with a café, leafy park, fountain, neighbouring offices and your ${['garage', 'small office', 'office floor', 'office tower', 'headquarters'][level]}. ${night ? 'The office windows glow at night.' : 'Pepes stroll along sunny streets.'}`}
+      aria-label={`An isometric Pepe city with a café, leafy park, fountain, neighbouring offices and your ${['garage', 'small office', 'office floor', 'office tower', 'headquarters'][level]}. ${
+        commuters.length
+          ? `${commuters.length} of your employees ${commuters.length === 1 ? 'walks' : 'walk'} to work along the streets. `
+          : ''
+      }${night ? 'The office windows glow at night.' : 'Neighbours stroll along sunny streets.'}`}
     >
       <defs>
         <radialGradient id="groundGlow">
@@ -612,7 +629,6 @@ export function CityArt({
       <Tree x={45} y={218} size={0.8} />
       <Tree x={149} y={217} size={0.65} autumn />
       <Tree x={462} y={211} size={0.75} />
-      <TinyPepe x={420} y={223} walking shirt="#a493b5" delay={-5} />
       <g transform={`translate(${iso(152, 262).join(' ')})`}>
         <path d="m-22 1 23 12 34-17-25-12Z" fill="#769b87" />
         <path d="m-22 1 1-10 22 12v10M1 3l34-17v10L1 13" fill="#577f70" />
@@ -621,8 +637,16 @@ export function CityArt({
         <ellipse cx="-12" cy="5" rx="4" ry="5" fill="#53655d" />
         <ellipse cx="27" cy="3" rx="4" ry="5" fill="#53655d" />
       </g>
-      <TinyPepe x={199} y={309} walking delay={-11} />
-      <TinyPepe x={320} y={285} shirt="#c1a56c" walking delay={-2} />
+      {commuters.map((look, i) => (
+        <TinyPepe
+          key={i}
+          x={COMMUTE_SPOTS[i][0]}
+          y={COMMUTE_SPOTS[i][1]}
+          shirt={OUTFITS[look % OUTFITS.length]}
+          walking
+          delay={COMMUTE_SPOTS[i][2]}
+        />
+      ))}
       <Building x={49} y={350} variant="cafe" night={night} />
       <Tree x={31} y={332} size={0.95} />
       <Tree x={179} y={347} size={0.8} />
@@ -644,7 +668,6 @@ export function CityArt({
       <Building x={350} y={339} variant="own" level={level} night={night} staff={staff} />
       <Tree x={527} y={337} size={0.9} />
       <Tree x={537} y={452} size={0.75} autumn />
-      <TinyPepe x={330} y={433} shirt="#8b9bbf" walking delay={-7} />
       <Fountain />
       <Box x={467} y={496} w={44} d={13} h={13} top="#c7a985" left="#a98966" right="#987b59" />
       <Box x={468} y={506} w={44} d={5} h={29} top="#c7a985" left="#b69471" right="#a98966" />
@@ -655,9 +678,8 @@ export function CityArt({
       <Planter x={327} y={530} flowers />
       <Planter x={414} y={536} flowers />
       <Lamp x={299} y={525} night={night} />
-      <TinyPepe x={302} y={406} walking shirt="#c7967c" delay={-13} />
       <g transform={`translate(${iso(250, 545).join(' ')}) rotate(27.65)`}>
-        <text fontSize="12" fill="#536e56" fontWeight="700" letterSpacing="2">
+        <text fontSize="12" fill="#536e56" fontWeight="800" letterSpacing="2">
           LILYPAD VALLEY
         </text>
       </g>
@@ -682,12 +704,14 @@ export type Place = 'office' | 'cafe' | 'labs' | 'plaza';
 export function City({
   level,
   staff,
+  looks,
   companyName,
   cityTime,
   onPlace,
 }: {
   level: number;
   staff: number;
+  looks: number[];
   companyName?: string;
   cityTime: number;
   onPlace: (place: Place) => void;
@@ -716,19 +740,16 @@ export function City({
           className="map-world"
           style={{ width: `${zoom * 100}%`, '--map-zoom': zoom } as CSSProperties}
         >
-          <CityArt level={level} night={night} staff={staff} />
+          <CityArt level={level} night={night} staff={staff} looks={looks} />
           <button className="map-label label-office" onClick={() => onPlace('office')}>
             <span className="tiny-dot" />
-            <span className="map-company-name" title={companyName || 'Your future office'}>
-              {companyName || 'Your future office'}
-            </span>
-            <span className="map-label-arrow">↗</span>
+            <span className="map-company-name">{companyName || 'Your future office'}</span>
           </button>
           <button className="map-label label-cafe" onClick={() => onPlace('cafe')}>
-            ☕ Lily’s café
+            <Coffee size={13} /> Lily’s café
           </button>
           <button className="map-label label-labs" onClick={() => onPlace('labs')}>
-            Lilypad Labs <span className="map-label-arrow">↗</span>
+            Lilypad Labs
           </button>
           <button className="map-label label-plaza" onClick={() => onPlace('plaza')}>
             The little plaza
@@ -736,9 +757,6 @@ export function City({
         </div>
       </div>
       <div className="map-bottomline">
-        <span className="map-hint">
-          <span className="tiny-dot" /> A little world, a lot of possibility.
-        </span>
         <div className="map-controls">
           <button
             className="icon-button"

@@ -21,7 +21,6 @@ import {
   ShoppingBag,
   Sparkles,
   Sprout,
-  Sun,
   TrendingUp,
   Users,
   Wallet,
@@ -172,7 +171,7 @@ function ModalShell({
 function Coin({ small = false }: { small?: boolean }) {
   return (
     <span className={`coin ${small ? 'coin-small' : ''}`} aria-hidden="true">
-      <span>ⅈ</span>
+      <Coins size={small ? 14 : 20} />
     </span>
   );
 }
@@ -438,6 +437,12 @@ function App() {
     if (modal) setDismissedNotice(game.notice);
   }, [modal]);
   useEffect(() => {
+    // The floating toast clears itself; a notice shown inside a dialog stays until the dialog closes.
+    if (modal || !game.notice || game.notice === dismissedNotice) return;
+    const timer = window.setTimeout(() => setDismissedNotice(game.notice), 6000);
+    return () => window.clearTimeout(timer);
+  }, [modal, game.notice, dismissedNotice]);
+  useEffect(() => {
     const titles = {
       city: 'Small office. Big dreams.',
       company: 'My company',
@@ -481,21 +486,19 @@ function App() {
         <span className="icon-tile">
           <Building2 size={19} />
         </span>
-        <h2>{game.company ? 'Your company' : 'Your story starts here'}</h2>
+        <h2>Your company</h2>
         <span className="level-badge">Lv. {game.company ? game.company.level + 1 : 1}</span>
       </div>
       <div className="office-preview">
-        <span className="preview-spark spark-one">✳</span>
         <BuildingPreview level={game.company?.level || 0} staff={team.length} />
-        <span className="preview-spark spark-two">✦</span>
         <span className="plot-label">Plot 08 · Clover Street</span>
       </div>
       <div className="company-card-content">
-        <h3>{game.company?.name || 'Room for your big idea.'}</h3>
+        <h3>{game.company?.name || 'No company yet'}</h3>
         <p>
           {game.company
-            ? `${building.name} · ${building.desks} desks · A work in progress.`
-            : 'Every great company starts with one Pepe and a little possibility.'}
+            ? `${building.name} · ${building.desks} desks`
+            : 'Mint a Pepe, then open a garage with three desks for 250 $ImdUSD.'}
         </p>
         {game.company ? (
           <>
@@ -533,7 +536,7 @@ function App() {
                 ? `Builders back in ${Math.ceil((game.lastUpgradeAt + UPGRADE_COOLDOWN - now) / 1000)}s`
                 : nextBuilding
                   ? `Next up: ${nextBuilding.name} · ${nextBuilding.desks} desks`
-                  : 'A big home for even bigger ideas.'}
+                  : 'Headquarters · 30 desks'}
             </p>
           </>
         ) : (
@@ -542,7 +545,7 @@ function App() {
               {game.workers.length ? 'Open your company' : 'Mint your first Pepe'}
               <ArrowRight size={17} />
             </button>
-            <p className="card-footnote">First Pepe is free. Good company is priceless.</p>
+            <p className="card-footnote">Your first Pepe is free.</p>
           </>
         )}
       </div>
@@ -579,7 +582,7 @@ function App() {
           <TrendingUp size={15} />
           <b>{formatMoney(earningRate(game, now))}</b> / min
         </span>
-        <span>{boostActive ? '1.25× coffee boost' : 'Every little second counts.'}</span>
+        {boostActive && <span>1.25× coffee boost</span>}
       </div>
     </section>
   );
@@ -602,15 +605,6 @@ function App() {
         role={menuOpen ? 'dialog' : undefined}
         aria-modal={menuOpen ? true : undefined}
       >
-        {menuOpen && (
-          <button
-            className="icon-button drawer-close"
-            aria-label="Close navigation"
-            onClick={() => setMenuOpen(false)}
-          >
-            <X size={21} />
-          </button>
-        )}
         <a href="#city" className="brand" aria-label="Pepe and Co. home">
           <FrogMark />
           <span>
@@ -619,7 +613,7 @@ function App() {
         </a>
         <div className="sidebar-nav-wrap">
           <div className="sidebar-neighbourhood">
-            <span className="tiny-dot" /> Life in Lilypad Valley
+            <span className="tiny-dot" /> Lilypad Valley
           </div>
           <nav aria-label="Main navigation">
             {nav.map((item) => (
@@ -641,20 +635,6 @@ function App() {
           </nav>
         </div>
         <div className="sidebar-bottom">
-          <div className="sidebar-note">
-            <span className="note-sprout">
-              <Sprout size={31} />
-            </span>
-            <p className="sidebar-note-title">
-              A little hustle.
-              <br />A lot of heart.
-            </p>
-            <p>Your next big thing starts with a small step.</p>
-            <button className="text-button" onClick={() => setModal('help')}>
-              The beginner’s guide
-              <ArrowUpRight size={15} />
-            </button>
-          </div>
           <button className="sidebar-help" onClick={() => setModal('help')}>
             <CircleHelp size={18} />
             How to play
@@ -662,7 +642,7 @@ function App() {
           <div className="sidebar-family">
             <FrogMark />
             <span>
-              Part of the Pepe family<small>Built for the little guy.</small>
+              Part of the Pepe family<small>Simulated play, no wallet</small>
             </span>
           </div>
         </div>
@@ -686,17 +666,13 @@ function App() {
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
-            <span className="greeting-icon">
-              <Sun size={20} />
-            </span>
-            <span>A good day to be a Pepe.</span>
             <span className="mobile-brand">pepe & co.</span>
           </div>
+          <button className="local-badge" onClick={() => setModal('help')}>
+            <span className="tiny-dot" />
+            Simulated play<span className="local-badge-detail"> · No wallet or real money</span>
+          </button>
           <div className="topbar-actions">
-            <button className="local-badge" onClick={() => setModal('help')}>
-              <span className="tiny-dot" />
-              Local play
-            </button>
             <div className="wallet" role="group" aria-label="Balance in simulated ImdUSD">
               <Coin small />
               <strong data-testid="balance">{formatMoney(game.balance)}</strong>
@@ -726,27 +702,23 @@ function App() {
                 {route === 'city'
                   ? 'Small office. Big dreams.'
                   : route === 'company'
-                    ? game.company?.name || 'Make yourself at work.'
+                    ? game.company?.name || 'My company'
                     : route === 'pepes'
-                      ? 'Good Pepes. Great company.'
-                      : 'Find your next great hire.'}
+                      ? 'My Pepes'
+                      : 'Marketplace'}
               </h1>
               <p>
                 {route === 'city'
                   ? 'A cosy office tycoon, built for the Pepe family.'
                   : route === 'company'
-                    ? 'A place for your team to do a little more, every day.'
+                    ? 'Earnings, building progress and the company journal.'
                     : route === 'pepes'
-                      ? 'A little personality. A lot of potential.'
-                      : 'Experienced Pepes, ready for their next chapter.'}
+                      ? 'Hire, train and sell the Pepes you own.'
+                      : 'Trained Pepes for sale. Prices in simulated $ImdUSD.'}
               </p>
             </div>
             <div className="page-heading-action">
-              {route === 'city' ? (
-                <span className="town-badge">
-                  <Leaf size={15} /> A cosy corner of the Pepeverse
-                </span>
-              ) : route === 'pepes' || route === 'market' ? (
+              {route === 'city' ? null : route === 'pepes' || route === 'market' ? (
                 <button className="button primary" onClick={() => setModal('mint')}>
                   <Plus size={17} />
                   Mint a Pepe
@@ -790,9 +762,6 @@ function App() {
                     {teamScore(game).toLocaleString('en-US', { maximumFractionDigits: 1 })}
                     <span>pts</span>
                   </strong>
-                  <p>
-                    <span className="mini-arrow">↗</span> A little training goes a long way
-                  </p>
                 </section>
                 <section className="stat-card">
                   <div className="stat-label">
@@ -805,7 +774,6 @@ function App() {
                     {team.length}
                     <span>/ {game.company ? building.desks : 3} desks</span>
                   </strong>
-                  <p>{team.length ? 'Big ideas, better company' : 'Your dream team starts here'}</p>
                 </section>
               </div>
               <div className="city-layout">
@@ -813,6 +781,7 @@ function App() {
                   <City
                     level={game.company?.level || 0}
                     staff={team.length}
+                    looks={team.map((worker) => worker.look)}
                     companyName={game.company?.name}
                     cityTime={game.playedSeconds}
                     onPlace={openPlace}
@@ -823,16 +792,15 @@ function App() {
                   <button className="coffee-card" onClick={() => setModal('cafe')}>
                     <span className="coffee-illustration">
                       <Coffee size={28} />
-                      <span>✦</span>
                     </span>
                     <span>
                       <strong>
-                        {boostActive ? 'The team is buzzing.' : 'Good work. Great coffee.'}
+                        {boostActive ? 'Coffee boost active' : `Team coffee · ${BOOST_COST} $ImdUSD`}
                       </strong>
                       <small>
                         {boostActive
-                          ? `${formatTime((game.boostUntil - now) / 1000)} of 25% extra earnings`
-                          : 'A little pick-me-up for your team.'}
+                          ? `${formatTime((game.boostUntil - now) / 1000)} of +25% earnings left`
+                          : '+25% earnings for 5 minutes'}
                       </small>
                     </span>
                     <ArrowUpRight size={18} />
@@ -1075,10 +1043,7 @@ function App() {
                     </span>
                     <strong>Room for one more?</strong>
                     <span>Meet your next favourite coworker.</span>
-                    <span className="mint-cost">
-                      Mint a Pepe · {MINT_COST} $ImdUSD
-                      <ArrowUpRight size={16} />
-                    </span>
+                    <span className="mint-cost">Mint a Pepe · {MINT_COST} $ImdUSD</span>
                   </button>
                 </div>
               ) : (
@@ -1122,19 +1087,6 @@ function App() {
           )}
           {route === 'market' && (
             <>
-              <div className="market-banner">
-                <span className="market-banner-icon">
-                  <ShoppingBag size={28} />
-                </span>
-                <div>
-                  <h2>A new chapter, same great Pepe.</h2>
-                  <p>
-                    Buy experienced workers with their training intact. This is a local practice
-                    market.
-                  </p>
-                </div>
-                <span className="soft-label">Simulated trades</span>
-              </div>
               <div className="collection-toolbar">
                 <h2>
                   Meet the talent{' '}
@@ -1204,18 +1156,17 @@ function App() {
             <span>
               <Clock3 size={13} />
               {formatTime(game.playedSeconds)} in the city
-              <span className="footer-separator">·</span>Take your time. Grow your way.
             </span>
           </footer>
         </main>
       </div>
       <div
-        className={`toast ${game.notice && game.notice !== dismissedNotice ? 'toast-visible' : ''}`}
+        className={`toast ${!modal && game.notice && game.notice !== dismissedNotice ? 'toast-visible' : ''}`}
         role="status"
         aria-live="polite"
         aria-atomic="true"
       >
-        {game.notice && game.notice !== dismissedNotice && (
+        {!modal && game.notice && game.notice !== dismissedNotice && (
           <>
             <span className="toast-icon">
               <Leaf size={19} />
@@ -1236,33 +1187,34 @@ function App() {
         <ModalShell
           title={
             typeof modal === 'object'
-              ? 'train' in modal
-                ? 'A little better, every day.'
-                : 'A new chapter for your Pepe.'
+              ? `${'train' in modal ? 'Train' : 'Sell'} ${
+                  game.workers.find((w) => w.id === ('train' in modal ? modal.train : modal.sell))
+                    ?.name || 'Pepe'
+                }`
               : modal === 'start'
                 ? !game.workers.length
-                  ? 'Meet your first coworker.'
+                  ? 'Mint your first Pepe'
                   : !game.company
-                    ? 'Give your big idea a home.'
+                    ? 'Open your company'
                     : !team.length
-                      ? 'Time to clock in.'
-                      : 'You’re open for business.'
+                      ? 'Hire your first Pepe'
+                      : 'You are open for business'
                 : modal === 'mint'
-                  ? 'Good company is growing.'
+                  ? 'Mint a Pepe'
                   : modal === 'upgrade'
-                    ? 'Make room for more.'
+                    ? 'Upgrade your building'
                     : modal === 'help'
-                      ? 'Small steps. Big possibilities.'
+                      ? 'How to play'
                       : modal === 'settings'
-                        ? 'Your corner of the city.'
+                        ? 'Settings'
                         : modal === 'reset'
-                          ? 'Start a new story?'
+                          ? 'Reset your local game?'
                           : modal === 'cafe'
-                            ? 'Welcome to Lily’s café.'
+                            ? 'Lily’s café'
                             : modal === 'labs'
-                              ? 'Hello, neighbour.'
+                              ? 'Lilypad Labs'
                               : modal === 'plaza'
-                                ? 'A little room to breathe.'
+                                ? 'The little plaza'
                                 : game.company?.name || 'Your company'
           }
           close={close}
@@ -1296,8 +1248,6 @@ function App() {
                 <>
                   <div className="mint-reveal">
                     <Pepe />
-                    <span className="reveal-star star-a">✳</span>
-                    <span className="reveal-star star-b">✧</span>
                     <span className="reveal-badge">Your first Pepe is free</span>
                   </div>
                   <p className="dialog-description">
@@ -1413,10 +1363,10 @@ function App() {
           {modal === 'mint' && (
             <>
               <div className="mint-reveal">
-                <Pepe look={game.workers.length % 5} />
-                <span className="reveal-star star-a">✳</span>
-                <span className="reveal-star star-b">✧</span>
-                <span className="reveal-badge">A new face. A fresh start.</span>
+                <Pepe look={(game.nextId - 1001) % 5} />
+                <span className="reveal-badge">
+                  {game.firstMinted ? `${MINT_COST} $ImdUSD` : 'Your first Pepe is free'}
+                </span>
               </div>
               <p className="dialog-description">
                 Every Pepe has a role, a work score, and their own kind of charm. Train them to help
@@ -1646,7 +1596,7 @@ function App() {
             <>
               <div className="cafe-hero">
                 <Coffee size={65} />
-                <span>Good coffee. Better company.</span>
+                <span>+25% earnings for 5 minutes</span>
               </div>
               <p className="dialog-description">
                 Lily knows the secret to a happy office. Treat the team to coffee for 25% extra
@@ -1797,10 +1747,11 @@ function App() {
               <div className="local-note">
                 <CircleHelp size={19} />
                 <span>
-                  <strong>A local game, made for exploring.</strong> You start with 1,200 simulated
-                  $ImdUSD. Progress saves in this browser; offline earnings are capped at 8 hours.
-                  No real NFTs, token payouts, wallet connection, or live multiplayer are included.
-                  Day and night alternate every four minutes, or you can choose in City lights.
+                  <strong>A simulated prototype.</strong> Pepe NFTs, $ImdUSD and the neighbouring
+                  companies are simulated in this browser. You start with 1,200 simulated $ImdUSD;
+                  progress saves locally and offline earnings are capped at 8 hours. No wallet, chain,
+                  token payout or live multiplayer is connected. Day and night alternate every four
+                  minutes, or you can choose in City lights.
                 </span>
               </div>
               <button
@@ -1819,8 +1770,8 @@ function App() {
                   <Wallet size={22} />
                 </span>
                 <div>
-                  <h3>Local play</h3>
-                  <p>Your company lives in this browser.</p>
+                  <h3>Simulated play</h3>
+                  <p>Your company lives in this browser. No wallet or real money is involved.</p>
                 </div>
               </div>
               <p className="dialog-description">
@@ -1832,7 +1783,7 @@ function App() {
                 Download save
               </button>
               <div className="settings-divider" />
-              <h3>A fresh beginning</h3>
+              <h3>Reset</h3>
               <p className="dialog-description">
                 Start over with 1,200 simulated $ImdUSD and a free first Pepe. This replaces the
                 progress on this device.
