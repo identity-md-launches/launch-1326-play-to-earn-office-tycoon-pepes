@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-12",
+  "method": "Chromium: document.documentElement.scrollWidth compared with innerWidth on the final production bundle.",
+  "reports": [
+    {
+      "width": 320,
+      "route": "#city",
+      "documentWidth": 320,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 320,
+      "route": "#company",
+      "documentWidth": 320,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 320,
+      "route": "#pepes",
+      "documentWidth": 320,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 320,
+      "route": "#market",
+      "documentWidth": 320,
+      "heading": "Find your next great hire."
+    },
+    {
+      "width": 390,
+      "route": "#city",
+      "documentWidth": 390,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 390,
+      "route": "#company",
+      "documentWidth": 390,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 390,
+      "route": "#pepes",
+      "documentWidth": 390,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 390,
+      "route": "#market",
+      "documentWidth": 390,
+      "heading": "Find your next great hire."
+    },
+    {
+      "width": 768,
+      "route": "#city",
+      "documentWidth": 768,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 768,
+      "route": "#company",
+      "documentWidth": 768,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 768,
+      "route": "#pepes",
+      "documentWidth": 768,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 768,
+      "route": "#market",
+      "documentWidth": 768,
+      "heading": "Find your next great hire."
+    },
+    {
+      "width": 1024,
+      "route": "#city",
+      "documentWidth": 1024,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 1024,
+      "route": "#company",
+      "documentWidth": 1024,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 1024,
+      "route": "#pepes",
+      "documentWidth": 1024,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 1024,
+      "route": "#market",
+      "documentWidth": 1024,
+      "heading": "Find your next great hire."
+    },
+    {
+      "width": 1440,
+      "route": "#city",
+      "documentWidth": 1440,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 1440,
+      "route": "#company",
+      "documentWidth": 1440,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 1440,
+      "route": "#pepes",
+      "documentWidth": 1440,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 1440,
+      "route": "#market",
+      "documentWidth": 1440,
+      "heading": "Find your next great hire."
+    },
+    {
+      "width": 1920,
+      "route": "#city",
+      "documentWidth": 1920,
+      "heading": "Small office. Big dreams."
+    },
+    {
+      "width": 1920,
+      "route": "#company",
+      "documentWidth": 1920,
+      "heading": "Pepe & Co."
+    },
+    {
+      "width": 1920,
+      "route": "#pepes",
+      "documentWidth": 1920,
+      "heading": "Good Pepes. Great company."
+    },
+    {
+      "width": 1920,
+      "route": "#market",
+      "documentWidth": 1920,
+      "heading": "Find your next great hire."
+    }
+  ]
+}

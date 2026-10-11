@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-12",
+  "tool": "axe-core 4.11.0 via Chromium",
+  "scope": "WCAG 2 A/AA, 2.1 A/AA, 2.2 AA tags; automated scan only, not a compliance certification",
+  "reports": [
+    {
+      "url": "http://localhost:4173/preview/?final=5#city",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "violations": [],
+      "passes": 25,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#company",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "violations": [],
+      "passes": 23,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 14
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#pepes",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "violations": [],
+      "passes": 20,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#market",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "violations": [],
+      "passes": 22,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#city",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "violations": [],
+      "passes": 25,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 8
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#company",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "violations": [],
+      "passes": 23,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#pepes",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "violations": [],
+      "passes": 20,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 7
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4173/preview/?final=5#market",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "violations": [],
+      "passes": 22,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "count": 10
+        }
+      ]
+    }
+  ]
+}

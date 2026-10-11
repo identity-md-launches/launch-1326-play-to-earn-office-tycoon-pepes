@@ -1,0 +1,60 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": "dist/assets/index-BLZ9iJ1D.js",
+      "bytes": 302424,
+      "sha256": "38a5e21bccca59cb04c3165eca47bd0c048df6070884b8412b81830aebd75f88"
+    },
+    {
+      "path": "dist/assets/index-DQfoHKtL.css",
+      "bytes": 63185,
+      "sha256": "17a2ca58ad36fee8f305d7217e9f32ed37abe6786d8f4bc8fdecaf9a4c9bb5d6"
+    },
+    {
+      "path": "dist/favicon.svg",
+      "bytes": 528,
+      "sha256": "ebfbd4be203db19b5607fa6651aa6d53215cbdad4f71a2f149dbf4b16dad52c8"
+    },
+    {
+      "path": "dist/fonts/DM-Sans-OFL.txt",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1"
+    },
+    {
+      "path": "dist/fonts/Manrope-OFL.txt",
+      "bytes": 4387,
+      "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+    },
+    {
+      "path": "dist/fonts/dm-sans-latin.woff2",
+      "bytes": 36932,
+      "sha256": "9fea608a947e67020c33cad9a6fe3d60c54119dfb8cff87768a8117a15ed7543"
+    },
+    {
+      "path": "dist/fonts/manrope-latin.woff2",
+      "bytes": 24836,
+      "sha256": "a30ddcd349703aff7464c34bef3fffdff405ee50c113440d7c8693c02d210972"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 1412,
+      "sha256": "6e0d1ce01b3093b8fe00bbd5f688017e0aa6e7a8b981f39f0f8f57c62fe2c40b"
+    },
+    {
+      "path": "dist/og-image.png",
+      "bytes": 214757,
+      "sha256": "710b79cce92f47e9a552d6723293ea6e1febb03330b8d4f4aebe5f80f66b8a3b"
+    },
+    {
+      "path": "dist/og-image.svg",
+      "bytes": 68477,
+      "sha256": "416262c8094ba235548e116595ffbc3db04e3f0e371f10316b2a1ed12288bc37"
+    },
+    {
+      "path": "dist/runtime-licenses.txt",
+      "bytes": 3056,
+      "sha256": "7ba552295ff4ec560a21e129e1fbe3e99c3790de7d0cc1bfcc1ef64035c903fa"
+    }
+  ]
+}
