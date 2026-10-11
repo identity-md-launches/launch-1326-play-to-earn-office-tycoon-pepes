@@ -3860,9 +3860,6 @@ input[aria-invalid='true'] {
   .map-label.label-cafe {
     left: 18%;
   }
-  .map-label.label-office {
-    left: 62%;
-  }
   .map-bottomline {
     margin-top: 12px;
   }
@@ -4088,6 +4085,13 @@ input[aria-invalid='true'] {
   }
   .city-caption > span {
     flex-wrap: wrap;
+  }
+}
+/* Narrow phones: a two-line 32-character company name must clear the café pill.
+   This sits after the 620px block above so it is the rule that wins. */
+@media (max-width: 360px) {
+  .map-label.label-office {
+    left: 68%;
   }
 }
 @media (max-width: 1050px) {

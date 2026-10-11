@@ -93,13 +93,13 @@ The local state and device clock are editable by the player. The economy is not 
 
 ## Validation and design
 
-Actual worker-run results on 12 October 2026 (Asia/Taipei):
+Actual worker-run results, last rerun on 11 October 2026 (UTC) after the final source change:
 
 | Check | Result |
 | --- | --- |
 | TypeScript `tsc --noEmit` | Passed |
 | Game-model tests | 17 passed, 0 failed |
-| Vite production build | Passed; 11 exported files, 724,476 bytes |
+| Vite production build | Passed; 11 exported files, 719,147 bytes; `dist/` hashes match `artifacts/export-manifest.json` |
 | Static export validation | Passed; six local relative asset references; 1200 × 630 PNG |
 | Browser interactions | Onboarding, hiring, collection, training, upgrade/cooldown, minting, selling/repurchasing, filters, boost, navigation, reset, and download exercised |
 | Responsive layout | All four pages at 320, 390, 768, 1024, 1440, and 1920 px; no document horizontal overflow |

@@ -2,14 +2,14 @@
   "algorithm": "sha256",
   "files": [
     {
-      "path": "dist/assets/index-BLZ9iJ1D.js",
-      "bytes": 302424,
-      "sha256": "38a5e21bccca59cb04c3165eca47bd0c048df6070884b8412b81830aebd75f88"
+      "path": "dist/assets/index-Cbq82-5o.css",
+      "bytes": 59823,
+      "sha256": "9784ca1cd1ff1ce5cef4ce00f7dfa2658ceb248165c2878d472f7209400bf045"
     },
     {
-      "path": "dist/assets/index-DQfoHKtL.css",
-      "bytes": 63185,
-      "sha256": "17a2ca58ad36fee8f305d7217e9f32ed37abe6786d8f4bc8fdecaf9a4c9bb5d6"
+      "path": "dist/assets/index-D5uLfPrn.js",
+      "bytes": 300457,
+      "sha256": "dd2f4518b052db78560cb2213845556fabd72f10ada18ac2b46aa7818459cb4b"
     },
     {
       "path": "dist/favicon.svg",
@@ -39,7 +39,7 @@
     {
       "path": "dist/index.html",
       "bytes": 1412,
-      "sha256": "6e0d1ce01b3093b8fe00bbd5f688017e0aa6e7a8b981f39f0f8f57c62fe2c40b"
+      "sha256": "b564140dfc4134dbe2557b84d70cc17c410d9193ab971708339d2a18d24255fc"
     },
     {
       "path": "dist/og-image.png",

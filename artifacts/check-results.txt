@@ -1,18 +1,10 @@
-Validation run: 2026-10-11T19:06:17.175460+00:00
-Node 24.21.0; npm 11.19.0; isolated dependency directory /tmp/pepe-office-build
-Source, package files and tests copied byte-for-byte from repository.
+Validation run: 2026-10-11T19:59:05Z
+Node v24.21.0; npm 11.19.0; dependencies installed with npm ci from the committed package-lock.json
 
 $ npm run typecheck
 
 > pepe-and-co@1.0.0 typecheck
 > tsc --noEmit
-
-
-npm notice
-npm notice New major version of npm available! 11.19.0 -> 12.2.0
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
-npm notice To update run: npm install -g npm@12.2.0
-npm notice
 
 Exit status: 0
 
@@ -21,23 +13,23 @@ $ npm run test
 > pepe-and-co@1.0.0 test
 > tsx --test test/game.test.ts
 
-✔ entry requires a Pepe; first mint is free and opening charges once (3.07061ms)
-✔ earnings accrue per second and collection preserves fractions of a cent (30.289001ms)
-✔ training settles old earnings first and compounds exactly 15%, with increasing costs (1.180533ms)
-✔ a Pepe can occupy only one desk and full offices reject hires (1.788027ms)
-✔ releasing a trained Pepe frees the desk without resetting their level (0.76659ms)
-✔ upgrades add capacity and base income, enforce a cooldown and stop at headquarters (0.748797ms)
-✔ unaffordable purchases do not alter balance or ownership (1.305576ms)
-✔ training cannot exceed level 10 or charge at the cap (0.659662ms)
-✔ the last Pepe and employed Pepes cannot be sold (0.459457ms)
-✔ selling and buying back retains identity, role, appearance, and training with no duplicate ownership (1.734608ms)
-✔ coffee applies a timed 25% boost and expiry splits the earnings interval (0.719853ms)
-✔ offline accrual is capped at eight hours, does not add play time, and cannot resurrect expired boosts (0.542602ms)
-✔ backward clock changes cannot grant negative earnings (0.384497ms)
-✔ mint odds map all five role boundaries and charge 300 after the free mint (0.746634ms)
-✔ save round-trip preserves progression and adds only legitimate offline earnings (1.172248ms)
-✔ malformed saves, duplicate IDs, excess desks, unknown roles and invalid currency are rejected (1.160376ms)
-✔ multiple same-time actions cannot duplicate collection or purchases (0.87836ms)
+✔ entry requires a Pepe; first mint is free and opening charges once (8.102622ms)
+✔ earnings accrue per second and collection preserves fractions of a cent (17.97225ms)
+✔ training settles old earnings first and compounds exactly 15%, with increasing costs (0.47255ms)
+✔ a Pepe can occupy only one desk and full offices reject hires (0.739749ms)
+✔ releasing a trained Pepe frees the desk without resetting their level (0.366639ms)
+✔ upgrades add capacity and base income, enforce a cooldown and stop at headquarters (0.391205ms)
+✔ unaffordable purchases do not alter balance or ownership (0.765969ms)
+✔ training cannot exceed level 10 or charge at the cap (0.363643ms)
+✔ the last Pepe and employed Pepes cannot be sold (0.323537ms)
+✔ selling and buying back retains identity, role, appearance, and training with no duplicate ownership (1.04438ms)
+✔ coffee applies a timed 25% boost and expiry splits the earnings interval (0.320901ms)
+✔ offline accrual is capped at eight hours, does not add play time, and cannot resurrect expired boosts (0.295473ms)
+✔ backward clock changes cannot grant negative earnings (0.22023ms)
+✔ mint odds map all five role boundaries and charge 300 after the free mint (0.279863ms)
+✔ save round-trip preserves progression and adds only legitimate offline earnings (0.559946ms)
+✔ malformed saves, duplicate IDs, excess desks, unknown roles and invalid currency are rejected (0.557742ms)
+✔ multiple same-time actions cannot duplicate collection or purchases (0.401194ms)
 ℹ tests 17
 ℹ suites 0
 ℹ pass 17
@@ -45,14 +37,7 @@ $ npm run test
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 288.103959
-
-npm notice
-npm notice New major version of npm available! 11.19.0 -> 12.2.0
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
-npm notice To update run: npm install -g npm@12.2.0
-npm notice
-
+ℹ duration_ms 170.208651
 Exit status: 0
 
 $ npm run build
@@ -66,16 +51,9 @@ transforming...
 rendering chunks...
 computing gzip size...
 dist/index.html                   1.41 kB │ gzip:  0.62 kB
-dist/assets/index-DQfoHKtL.css   63.19 kB │ gzip: 12.78 kB
-dist/assets/index-BLZ9iJ1D.js   302.42 kB │ gzip: 93.07 kB
-✓ built in 4.13s
-
-npm notice
-npm notice New major version of npm available! 11.19.0 -> 12.2.0
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
-npm notice To update run: npm install -g npm@12.2.0
-npm notice
-
+dist/assets/index-Cbq82-5o.css   59.82 kB │ gzip: 12.07 kB
+dist/assets/index-D5uLfPrn.js   300.46 kB │ gzip: 92.62 kB
+✓ built in 2.63s
 Exit status: 0
 
 $ npm run check:export
@@ -83,7 +61,5 @@ $ npm run check:export
 > pepe-and-co@1.0.0 check:export
 > node scripts/check-export.mjs
 
-Export check passed: 11 files, 724,476 bytes, 6 local asset references. Social image: 1200×630 PNG.
-
-
+Export check passed: 11 files, 719,147 bytes, 6 local asset references. Social image: 1200×630 PNG.
 Exit status: 0

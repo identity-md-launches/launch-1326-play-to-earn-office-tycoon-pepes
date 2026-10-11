@@ -62,9 +62,9 @@ One six-size scale is used for interface text, based on a 16 px root:
 | `--text-xl` | 1.75rem / 28px | Mobile page headings and figures |
 | `--text-display` | 2.25rem / 36px | Desktop page headings and main figures |
 
-Body line-height is 1.5. Page headings use 1.2 with −1.5 px tracking; section headings use 1.3 with −0.55 px tracking. Dialog prose uses 1.8. The headings use weight 800; normal text 400–500 and emphasis 600–650. Mobile headings are 28 px with −1 px tracking. The design has no small tracked uppercase eyebrow labels. Tiny lettering drawn inside the SVG buildings is decorative illustration detail, not interface instructions.
+Body line-height is 1.5. Page headings use 1.2 with −1.5 px tracking; section headings use 1.3 with −0.55 px tracking. Dialog prose uses 1.8. The headings use weight 800; normal text 400–500 and emphasis 600. Four weights are used in total. Mobile headings are 28 px with −1 px tracking. The design has no small tracked uppercase eyebrow labels. Tiny lettering drawn inside the SVG buildings is decorative illustration detail, not interface instructions.
 
-Live amounts use tabular numerals and stay on one line; their action can wrap below at enlarged text sizes. Long company names wrap in headings/dialogs. The constrained city label uses an ellipsis with the full name in its title and office dialog. Page changes focus the new `h1`; worker cards are `h2` sections under their page heading.
+Live amounts use tabular numerals and stay on one line; their action can wrap below at enlarged text sizes. Long company names wrap in headings/dialogs. The city office label also wraps (two lines for a 32-character name) instead of truncating; it is capped at 42% of the map width, or 60% below 620 px. Page changes focus the new `h1`; worker cards are `h2` sections under their page heading.
 
 ## Layout
 
@@ -79,7 +79,7 @@ On a standard desktop, a fixed 226 px sidebar sits beside the application. The t
 | ≤1050 px | Sidebar narrows to 192 px; city and company rail stack; company supporting cards reflow |
 | ≤800 px | Sidebar becomes a 235 px navigation drawer; compact top bar; 28 px page titles; three worker columns |
 | ≤620 px | 17 px main side padding; earnings card spans full width above two summary cards; map and company panels stack; two worker columns; card actions stack |
-| ≤360 px | Additional padding and control-spacing adjustments retain the same content order |
+| ≤360 px | Additional padding and control-spacing adjustments retain the same content order; the office label moves to 68% of the map width so a two-line name clears the café label |
 
 At 390 px, the product heading, plain description, and Start playing button appear above the first fold. The button was measured at y=192.78–232.78 px in an 844 px viewport. No introductory hero pushes the game below the fold.
 

@@ -1,6 +1,6 @@
 # Implementation and validation record
 
-Date: **12 October 2026, Asia/Taipei** (11 October UTC). This is a record of checks performed by the implementing worker, not an independent certification.
+Date: **12 October 2026, Asia/Taipei** (11 October UTC); the revision checks in the last section were rerun on 11 October 2026 (UTC). This is a record of checks performed by the implementing worker, not an independent certification.
 
 ## Delivery and environment
 
@@ -12,14 +12,14 @@ Tools used: Node 24.21.0, npm 11.19.0, TypeScript, Vite 7.3.7, Node’s test run
 
 ## Production checks
 
-The actual command transcript is [check-results.txt](check-results.txt). Commands ran in the isolated `/tmp/pepe-office-build` copy using the delivered manifest and lockfile:
+The actual command transcript is [check-results.txt](check-results.txt), from the final rerun in the repository working copy after `npm ci` from the committed lockfile (the first round ran the same commands in an isolated `/tmp` copy):
 
 | Command | Actual result |
 | --- | --- |
 | `npm run typecheck` | Exit 0, `tsc --noEmit` |
 | `npm run test` | Exit 0, 17 tests passed, none failed/skipped |
 | `npm run build` | Exit 0, Vite production export generated |
-| `npm run check:export` | Exit 0, 11 files, 724,476 bytes; six local relative references; PNG 1200 × 630 |
+| `npm run check:export` | Exit 0, 11 files, 719,147 bytes; six local relative references; PNG 1200 × 630 |
 
 The model tests cover the required Pepe before opening; free-first/paid-later mint; charges and invalid company names; per-second accrual; cent fractions; settlement before training; one worker per desk; capacity; release retaining level; all upgrade stages, cooldown and final cap; affordability; level-10 training cap; last/working-worker sale restrictions; sale/repurchase preserving identity and level; boost expiry; eight-hour offline cap; backward clocks; all role probability boundaries; save round-trip and malformed/duplicate/over-capacity saves; and repeated same-time actions. Long timers are advanced deterministically in tests, not waited out.
 
@@ -50,7 +50,7 @@ These were exercised in the rendered production build with browser clicks, input
 | Disabled-action dialog | A cooldown dialog with only Close enabled kept keyboard focus within the dialog after the focus-trap repair. |
 | Save and reset | Reload retained progression; cancelled reset retained the company; confirmed reset restored fresh state. A downloaded JSON record was parsed and contained version 1/company/worker data. |
 | Corrupt persistence fixture | Injected malformed saved JSON, then reloaded: fresh 1,200 balance, visible recovery warning, usable Start playing. The prior valid session was restored afterward. |
-| Long-name fixture | Injected a maximum-length 32-character company name and reloaded at 320 px: heading wrapped over three lines, no document overflow. The normal save was restored. |
+| Long-name fixture | Injected a maximum-length 32-character company name and reloaded at 320 px: heading wrapped over three lines, no document overflow. The normal save was restored. Re-measured in the revision below: the city office label wraps to two lines and clears the café label. |
 
 No real asset transaction or network multiplayer behavior is implied by these checks. Cross-tab event handling was inspected and repaired to avoid timestamp write-back loops, but concurrent transactions across multiple active tabs were not exhaustively tested.
 
@@ -136,3 +136,14 @@ The screenshots were captured from the actual production application. Gameplay b
 `dist/` was regenerated from the final source. Temporary axe injection, older hashed bundles, browser scratch downloads, and package caches were removed from the deliverable. Source, lockfile, all runtime assets, required documentation, notices, and screenshots remain complete. The raw deliverable size and file inventory are recorded in [submission-size.json](submission-size.json); the export hashes are in [export-manifest.json](export-manifest.json).
 
 The explicit path budget for `.gitignore` is **512 bytes** (actual 300 bytes); it excludes dependency/cache directories at every nesting level without excluding `dist/`. The 8,388,608-byte submission limit is checked against all deliverable file bytes, not just the site export. No `.git/`, `.github/`, `.env` file, or repository `node_modules/` was modified. No git submodule or publishing action was created.
+
+## Revision: stale export and narrow-screen label overlap
+
+An independent review reported two defects after the second round. Both were reproduced before anything changed.
+
+| Finding | Reproduction | Cause and fix | Verification |
+| --- | --- | --- | --- |
+| The committed `dist/` was the build from the round before; the second round's source changes never reached the export | `git diff --stat HEAD~1 HEAD` listed only four `src/` files; `dist/assets` still held `index-BLZ9iJ1D.js` and `index-DQfoHKtL.css`. A fresh `vite build` into `test/scratch/build` produced the reviewer's `index-DvT4iG5N.js` / `index-DX4ZebRe.css`, and string counts differed exactly as reported (`Georgia` 1 vs 0, `font-weight:650` 4 vs 0, `drawer-close` 2 vs 0, `☕` 1 vs 0, `Take your time` 1 vs 0) | The second round rebuilt the export but did not deliver it. `npm run build` was rerun from the final source after the label fix below; `dist/index.html` and `dist/assets/*` were replaced, the old hashed bundles removed, and `export-manifest.json`, `check-results.txt` and `submission-size.json` regenerated | On the rebuilt export served at 390 × 844 with fresh storage: the disclosure `Simulated play · No wallet or real money` is visible under the top bar; Start playing opens a dialog titled `Mint your first Pepe`; the status toast is `display: none` and empty while a dialog is open. With one hired Pepe: the office label has `text-overflow: clip`, `scrollWidth` equals `clientWidth`, and three walking Pepes render (two fixed neighbourhood commuters plus one per hired Pepe). Final CSS declares weights 400, 500, 600 and 800 only |
+| At 320 px a wrapped 32-character company name's office pill overlapped the café pill (`src/styles.css` 360 px rule) | 320 × 844 Chromium, save seeded with `Wonderful Lilypad Ventures Co 32` and one hired Pepe: office pill x=113 w=176, café pill right edge 116, overlap 3 px (reviewer: 4 px) | The 360 px rule's `left: 62%` never applied: a later `max-width: 620px` block sets `left: 64%` on the same selector with equal specificity, so it won at every narrow width. The reviewer's proposed 65% was simulated in-page and still left the pills touching (gap 0) because the map is 294 px wide at 320. The dead declaration was removed and a new 360 px block after the 620 px block sets `left: 68%` (`src/styles.css:4094`) | Rebuilt export, same fixture: at 320 px the office pill is x=125–301, 9 px clear of the café pill and 6 px inside the map edge; at 360 px it is 16 px clear and 7 px inside; no document horizontal overflow at either width. Screenshot checked in Chromium. WebKit and Firefox were not run |
+
+The revision touched only the 360 px label rule in `src/styles.css`, the regenerated export and the records above. No other accepted behaviour was changed.
